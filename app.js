@@ -1,49 +1,59 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const app = express();
-const Port_number = 2004;
-mongoose.connect('mongodb://127.0.0.1:27017/Itemdb', { useNewUrlParser: true, useUnifiedTopology: true });
-// Connect to your MongoDB database
-//mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
+const path = require('path');
 
-// Create a Mongoose model for your data
-const Contact = mongoose.model('Contact', {
+const app = express();
+const port = 3000; // You can change this to the desired port.
+const mongoURI = 'mongodb+srv://maneprathamesh019:maneprathamesh019@cluster0.6tn2owo.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp'; // Replace with your MongoDB connection URI.
+
+// MongoDB connection setup
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+const ContactSchema = new mongoose.Schema({
   name: String,
   email: String,
   subject: String,
-  message: String,
+  message: String
 });
 
-// Middleware to parse the body of incoming requests
+const Contact = mongoose.model('Contact', ContactSchema);
+
+// Middleware to parse JSON and url-encoded data
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve your HTML and static files
-app.use(express.static('public')); // Assuming your HTML file is in a "public" directory
+// Serve the static HTML files from the "yoga" directory
+app.use(express.static(__dirname));
 
-// Handle form submission
+// Route for handling form submissions
 app.post('/submit', (req, res) => {
-  // Create a new Contact document from the form data
-  const contact = new Contact({
-    name: req.body.name,
-    email: req.body.email,
-    subject: req.body.subject,
-    message: req.body.message,
+  const { name, email, subject, message } = req.body;
+  console.log(name);
+
+  // Create a new contact record
+  const newContact = new Contact({
+    name,
+    email,
+    subject,
+    message
   });
 
-  // Save the data to the database
-  contact.save((err) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error saving the data.');
-    } else {
-      res.send('Data saved successfully!');
-    }
+  // Save the record to the database
+  newContact.save()
+  .then(() => {
+    res.status(200).send('Contact information saved successfully.');
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error saving contact information.');
   });
+
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
