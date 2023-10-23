@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const nodemailer = require("nodemailer");
 
 const app = express();
 const port = 3000; // You can change this to the desired port.
@@ -44,16 +45,53 @@ app.post('/submit', (req, res) => {
 
   // Save the record to the database
   newContact.save()
-  .then(() => {
-    res.status(200).send('Contact information saved successfully.');
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error saving contact information.');
-  });
+    .then(() => {
+      sendEmail(name, email);
+      res.status(200).send('Contact information saved successfully.');
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error saving contact information.');
+    });
 
 });
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+
+async function sendEmail(name, email) {
+  try {
+    // Create a transporter using your email service (e.g., Gmail)
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "maneprathamesh019@gmail.com",
+        pass: "vmmn wrvs wmzt jmjd",
+      },
+    });
+
+    // Email configuration
+    const mailOptions = {
+      from: "mentaldivine.com",
+      to: email,
+      subject: "Contact request recived",
+      text: "Thank " + name + " for connecting with us",
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, async (error, info) => {
+      if (error) {
+        console.error("Email sending failed:", error);
+      } else {
+        console.log("Email sent successfully:", info.response);
+      }
+    });
+  } catch (error) {
+    console.error("Email setup error:", error);
+  }
+}
+
+
