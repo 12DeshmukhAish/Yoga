@@ -9,6 +9,7 @@ const port = 3000; // You can change this to the desired port.
 const mongoURI = 'mongodb+srv://maneprathamesh019:maneprathamesh019@cluster0.6tn2owo.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp'; // Replace with your MongoDB connection URI.
 
 // MongoDB connection setup
+
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -24,6 +25,7 @@ const ContactSchema = new mongoose.Schema({
 const Contact = mongoose.model('Contact', ContactSchema);
 
 // Middleware to parse JSON and url-encoded data
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,6 +46,7 @@ app.post('/submit', (req, res) => {
   });
 
   // Save the record to the database
+  
   newContact.save()
     .then(() => {
       sendEmail(name, email);
@@ -60,8 +63,6 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-
-
 async function sendEmail(name, email) {
   try {
     // Create a transporter using your email service (e.g., Gmail)
@@ -73,7 +74,8 @@ async function sendEmail(name, email) {
       },
     });
 
-    // Email configuration
+// Email configuration
+
     const mailOptions = {
       from: "mentaldivine.com",
       to: email,
@@ -82,6 +84,7 @@ async function sendEmail(name, email) {
     };
 
     // Send the email
+
     transporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
         console.error("Email sending failed:", error);
@@ -93,5 +96,3 @@ async function sendEmail(name, email) {
     console.error("Email setup error:", error);
   }
 }
-
-
