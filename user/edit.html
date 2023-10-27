@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        /* Reset some default styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Page container styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        /* User profile header styles */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .profile-header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .edit-profile-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* User details styles */
+        .user-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .user-details img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            text-align: center;
+        }
+
+        .user-info p {
+            margin: 5px 0;
+        }
+
+        /* Edit profile form styles */
+        .edit-profile-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .edit-profile-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .save-profile-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="profile-header">
+        <h1>User Profile</h1>
+        <a href="#" class="edit-profile-link" onclick="toggleEditForm()">Edit Profile</a>
+    </div>
+
+    <div class="user-details">
+        <!-- <img src="user-avatar.jpg" alt="User Avatar"> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+        </svg>
+        <div class="user-info">
+            <p><strong>Name:</strong> <span id="userName">mahima singh</span></p>
+            <p><strong>Email:</strong> <span id="userEmail">mahima234@gmail.com</span></p>
+            <p><strong>Username:</strong> <span id="userUsername">mahimasin123</span></p>
+            <p><strong>Location:</strong> <span id="userLocation">Mumbai, Maharashtra</span></p>
+            <p><strong>About You:</strong> <span id="userBio">Your are with the mental Divine!!!</span></p>
+        </div>
+    </div>
+    
+    <div class="edit-profile-form" id="editProfileForm">
+        <form onsubmit="saveProfile(event)">
+            <input type="text" placeholder="Name" id="editName">
+            <input type="text" placeholder="Username" id="editUsername">
+            <button class="save-profile-button" type="submit">Save Profile</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleEditForm() {
+        var editForm = document.getElementById("editProfileForm");
+        editForm.style.display = (editForm.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function saveProfile(event) {
+        event.preventDefault();
+
+        var newName = document.getElementById("editName").value;
+        var newUsername = document.getElementById("editUsername").value;
+
+        document.getElementById("userName").textContent = newName;
+        document.getElementById("userUsername").textContent = newUsername;
+
+        toggleEditForm();
+    }
+</script>
+
+</body>
+</html>
