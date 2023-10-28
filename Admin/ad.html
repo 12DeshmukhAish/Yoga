@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="admin.css">
+    <style>
+        /* Reset some default styles */
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Overall layout styles */
+        .sidebar {
+            width: 225px;
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+        }
+
+        .nav {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav li {
+            margin-bottom: 10px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Header and user profile styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Add grid box styles for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<aside class="sidebar">
+    <div class="logo">Mental Divine</div>
+    <ul class="nav">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Orders</a></li>
+        <!-- Add more menu items here -->
+    </ul>
+</aside>
+
+<main class="content">
+    <header>
+        <h1>Dashboard</h1>
+        <div class="user-profile">
+            <!-- <img src="user-avatar.jpg" alt="User Avatar"> -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-fill"
+                 viewBox="0 0 16 16">
+                <path
+                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+            </svg>
+            <span>Admin</span>
+        </div>
+    </header>
+
+    <div class="page-content">
+        <!-- Your content goes here -->
+        <h2>USERS</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Samiksha Shaha</td>
+                <td>Pass@123</td>
+                <td>samiksha484@gmail.com</td>
+            </tr>
+            <tr>
+                <td>shivay singh</td>
+                <td>shiv@156</td>
+                <td>shiv99@gmail.com</td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<link rel="stylesheet" type="text/css" href="admin.css">
+</body>
+</html>
