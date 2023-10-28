@@ -83,6 +83,7 @@ async function sendEmail(name, email) {
       text: "Thank " + name + " for connecting with us",
     };
 
+    
     // Send the email
 
     transporter.sendMail(mailOptions, async (error, info) => {
