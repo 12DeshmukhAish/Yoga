@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Easiest Way to Add Input Masks to Your Forms</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        body{
+        body {
             background-color: #dee9ff;
         }
-        
-        .registration-form{
+
+        .registration-form {
             padding: 50px 0;
         }
-        
-        .registration-form form{
+
+        .registration-form form {
             background-color: #fff;
             max-width: 600px;
             margin: auto;
@@ -26,8 +28,8 @@
             border-top-right-radius: 30px;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
         }
-        
-        .registration-form .form-icon{
+
+        .registration-form .form-icon {
             text-align: center;
             background-color: #5891ff;
             border-radius: 50%;
@@ -39,14 +41,14 @@
             margin-bottom: 50px;
             line-height: 100px;
         }
-        
-        .registration-form .item{
+
+        .registration-form .item {
             border-radius: 20px;
             margin-bottom: 25px;
             padding: 10px 20px;
         }
-        
-        .registration-form .create-account{
+
+        .registration-form .create-account {
             border-radius: 30px;
             padding: 10px 20px;
             font-size: 18px;
@@ -56,8 +58,8 @@
             color: white;
             margin-top: 20px;
         }
-        
-        .registration-form .social-media{
+
+        .registration-form .social-media {
             max-width: 600px;
             background-color: #fff;
             margin: auto;
@@ -69,13 +71,13 @@
             border-top: 1px solid #dee9ff;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
         }
-        
-        .registration-form .social-icons{
+
+        .registration-form .social-icons {
             margin-top: 30px;
             margin-bottom: 16px;
         }
-        
-        .registration-form .social-icons a{
+
+        .registration-form .social-icons a {
             font-size: 23px;
             margin: 0 3px;
             color: #5691ff;
@@ -88,18 +90,18 @@
             background-color: #fff;
             line-height: 45px;
         }
-        
-        .registration-form .social-icons a:hover{
+
+        .registration-form .social-icons a:hover {
             text-decoration: none;
             opacity: 0.6;
         }
-        
+
         @media (max-width: 576px) {
-            .registration-form form{
+            .registration-form form {
                 padding: 50px 20px;
             }
-        
-            .registration-form .form-icon{
+
+            .registration-form .form-icon {
                 width: 70px;
                 height: 70px;
                 font-size: 30px;
@@ -111,29 +113,31 @@
 
 <body>
     <div class="registration-form">
-        <form>
+        <form name="sentMessage"  novalidate="novalidate" action="/register" method="post">
             <div class="form-icon">
                 <span><i class="icon icon-user"></i></span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="username" placeholder="Username">
+                <input type="text" class="form-control item" id="username" placeholder="Username" name="username">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control item" id="password" placeholder="Password">
+                <input type="password" class="form-control item" id="password" placeholder="Password" name="password">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="email" placeholder="Email">
+                <input type="text" class="form-control item" id="email" placeholder="Email" name="email">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
+                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number" name="phone">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="birth-date" placeholder="Birth Date">
+                <input type="text" class="form-control item" id="birth-date" placeholder="Birth Date" name="dob">
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-block create-account">Create Account</button>
+                <button type="submit" class="btn btn-block create-account">Create Account</button>
             </div>
-            <div style ="text-align:center"><a href="login.html"><p>sign in your account</p> </a> </div>
+            <div style="text-align:center"><a href="login.html">
+                    <p>sign in your account</p>
+                </a> </div>
 
         </form>
         <div class="social-media">
@@ -146,11 +150,13 @@
         </div>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="assets/js/script.js"></script>
-    <script> $(document).ready(function(){
-        $('#birth-date').mask('00/00/0000');
-        $('#phone-number').mask('0000-0000');
-       })</script>
+    <script> $(document).ready(function () {
+            $('#birth-date').mask('00/00/0000');
+            $('#phone-number').mask('0000-0000');
+        })</script>
 </body>
+
 </html>

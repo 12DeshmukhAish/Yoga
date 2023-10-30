@@ -112,19 +112,19 @@
 <body>
     
     <div class="registration-form">
-        <form>
+        <form action="/login" method="post" name="loginForm" >
             <div class="form-icon">
                 <span><i class="icon icon-user"></i></span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="username" placeholder="Username">
+                <input type="text" class="form-control item" id="username" placeholder="Username" name="username">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control item" id="password" placeholder="Password">
+                <input type="password" class="form-control item" id="password" placeholder="Password" name="password">
             </div>
           
             <div class="form-group">
-                <button type="button" class="btn btn-block create-account">Login In</button>
+                <button type="submit" class="btn btn-block create-account">Login In</button>
             </div>
             <div style ="text-align:center"><a href="reg.html"><p>create new account</p> </a> </div>
 
