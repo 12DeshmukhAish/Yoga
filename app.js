@@ -16,7 +16,7 @@ mongoose.connect(mongoURI, {
   useUnifiedTopology: true,
 });
 
-let user
+
 const ContactSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -29,7 +29,9 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
+  phone:Number,
   dob: String,
+  role:String
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -162,7 +164,7 @@ app.post("/submit", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
+var user
 
 
 
@@ -330,13 +332,17 @@ app.post("/login", async(req, res) => {
   const pass = req.body.password
   const user = await User.findOne({username});
   const passwordsMatch = await bcrypt.compare(pass, user.password);
-  const isAdmin = user?.role == "admin"
+  const isAdmin = user.role == 'admin'
+  console.log(isAdmin);
   console.log(user);
   if(passwordsMatch){
     if(isAdmin){
-      res.redirect('/admin/ad.html');
+      console.log(isAdmin);
+      res.redirect("/admin");
     }
-    res.redirect('/dashboard');
+    else{
+    res.render("profile",{user:user})
+    }
   }
   else{
     res.redirect('/login')
@@ -351,3 +357,27 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/user/login.html');
 });
 
+app.get("/admin", async (req, res) => {
+  try {
+    // Fetch all user data from the database
+    const users = await User.find({}).exec();
+
+    // Render the admin page and pass the user data as an array
+    res.render("admin", { users: users });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching user data.");
+  }
+});
+app.get("/admin/contact", async (req, res) => {
+  try {
+    // Fetch all user data from the database
+    const contacts = await Contact.find({}).exec();
+
+    // Render the admin page and pass the user data as an array
+    res.render("contacts", { contacts: contacts });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching user data.");
+  }
+});
