@@ -3,19 +3,18 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const nodemailer = require("nodemailer");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const app = express();
 const ejs = require("ejs");
 const port = 3000;
 
 const mongoURI =
   "mongodb+srv://deshmukhaishwarya484:deshmukhaishwarya484@cluster0.c2qnvez.mongodb.net/?retryWrites=true&w=majority"; // Replace with your MongoDB connection URI.
-  app.set("view engine", "ejs");
+app.set("view engine", "ejs");
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 
 const ContactSchema = new mongoose.Schema({
   name: String,
@@ -29,9 +28,9 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  phone:Number,
+  phone: Number,
   dob: String,
-  role:String
+  role: String,
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -47,8 +46,7 @@ app.use(express.static(__dirname));
 // Route for handling form submissions
 app.post("/submit", (req, res) => {
   const { name, email, subject, message } = req.body;
-  const contactMail =
-`
+  const contactMail = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -136,8 +134,7 @@ app.post("/submit", (req, res) => {
     </div>
     </body>
     </html>
-  `
-
+  `;
 
   // Create a new contact record
   const newContact = new Contact({
@@ -152,7 +149,7 @@ app.post("/submit", (req, res) => {
   newContact
     .save()
     .then(() => {
-      sendEmail( email,contactMail);
+      sendEmail(email, contactMail);
       res.status(200).send("Contact information saved successfully.");
     })
     .catch((err) => {
@@ -164,11 +161,9 @@ app.post("/submit", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-var user
+var user;
 
-
-
-async function sendEmail(email,content) {
+async function sendEmail(email, content) {
   try {
     // Create a transporter using your email service (e.g., Gmail)
     const transporter = nodemailer.createTransport({
@@ -185,10 +180,9 @@ async function sendEmail(email,content) {
       from: "mentaldivine.com",
       to: email,
       subject: "Contact request received",
-      html: content
+      html: content,
     };
 
-    
     // Send the email
 
     transporter.sendMail(mailOptions, async (error, info) => {
@@ -201,8 +195,6 @@ async function sendEmail(email,content) {
   } catch (error) {
     console.error("Email setup error:", error);
   }
-
-  
 }
 
 app.post("/register", async (req, res) => {
@@ -265,7 +257,7 @@ app.post("/register", async (req, res) => {
   <body>
   <div class="email-container">
       <div class="header">
-          <h1>Thank You for Connecting Mental Divine</h1>
+          <h1>Successful  Connected to  Mental Divine</h1>
       </div>
       
       <div class="email-content">
@@ -295,66 +287,64 @@ app.post("/register", async (req, res) => {
   </div>
   </body>
   </html>
-`
-
+`;
 
   // Data validation (you can use express-validator)
   if (!username || !password || !email) {
-      return res.status(400).send("Invalid input. Username, password, and email are required.");
+    return res
+      .status(400)
+      .send("Invalid input. Username, password, and email are required.");
   }
 
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // Store user information in the database (for demonstration purposes)
-    user = new User({
-      username,
-      password: hashedPassword,
-      email,
-      phone,
-      dob
+  user = new User({
+    username,
+    password: hashedPassword,
+    email,
+    phone,
+    dob,
   });
   user
-  .save()
-  .then(() => {
-    sendEmail(email,registerMail)
-    res.status(200).redirect("/dashboard");
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send("Error while registration");
-  });
-
+    .save()
+    .then(() => {
+      sendEmail(email, registerMail);
+      res.status(200).redirect("/dashboard");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error while registration");
+    });
 });
-app.post("/login", async(req, res) => {
+app.post("/login", async (req, res) => {
   // Successful login
-  const username= req.body.username;
-  const pass = req.body.password
-  const user = await User.findOne({username});
+  const username = req.body.username;
+  const pass = req.body.password;
+  const user = await User.findOne({ username });
   const passwordsMatch = await bcrypt.compare(pass, user.password);
-  const isAdmin = user.role == 'admin'
+  const isAdmin = user.role == "admin";
   console.log(isAdmin);
   console.log(user);
-  if(passwordsMatch){
-    if(isAdmin){
+  if (passwordsMatch) {
+    if (isAdmin) {
       console.log(isAdmin);
       res.redirect("/admin");
+    } else {
+      res.render("profile", { user: user });
     }
-    else{
-    res.render("profile",{user:user})
-    }
-  }
-  else{
-    res.redirect('/login')
+  } else {
+    res.redirect("/login");
     console.log("Invalid Password");
   }
 });
 
-app.get('/dashboard', (req, res) => {
-  res.render("profile",{user})
+app.get("/dashboard", (req, res) => {
+  res.render("profile", { user });
 });
-app.get('/login', (req, res) => {
-  res.sendFile(__dirname + '/user/login.html');
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/user/login.html");
 });
 
 app.get("/admin", async (req, res) => {
