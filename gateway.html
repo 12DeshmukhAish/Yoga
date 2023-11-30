@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Payment Gateway Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        #paymentForm {
+            max-width: 400px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #paymentResult {
+            margin-top: 20px;
+        }
+
+        .alert {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Payment Gateway Dashboard</h2>
+
+        <form id="paymentForm">
+            <div class="form-group">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" class="form-control" placeholder="Enter card number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="MM/YY" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" class="form-control" placeholder="Enter CVV" required>
+            </div>
+
+            <button type="button" onclick="processPayment()" class="btn btn-block">Process Payment</button>
+        </form>
+
+        <div id="paymentResult" class="text-center"></div>
+    </div>
+
+    <script>
+        function processPayment() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber.trim() === '' || expiryDate.trim() === '' || cvv.trim() === '') {
+                document.getElementById('paymentResult').innerHTML = '<div class="alert alert-danger">Please fill in all fields.</div>';
+                return;
+            }
+
+            // Simulating a successful payment
+            document.getElementById('paymentResult').innerHTML = '<div class="alert alert-success">Payment successful!</div>';
+
+            // Redirect to the home page after a short delay (2 seconds in this example)
+            setTimeout(function () {
+                window.location.href = '/';  // Replace 'your-homepage-url' with the actual URL
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
