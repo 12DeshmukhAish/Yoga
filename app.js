@@ -269,7 +269,7 @@ app.post("/register", async (req, res) => {
       </div>
       
       <div class="email-content">
-       <p>"Dear" ${username},</p>           
+       <p>Dear ${username},</p>           
           <p>We want to express our gratitude for reaching out to Mental Divine. Your mental well-being is important to us, and we are here to provide you with the support and guidance you need to manage stress and improve your mental health.</p>
           
           <p>At Mental Divine, we offer a wide range of resources and services to help you reduce stress and find solutions to your mental health concerns. You can explore:</p>
@@ -312,7 +312,8 @@ app.post("/register", async (req, res) => {
       password: hashedPassword,
       email,
       phone,
-      dob
+      dob,
+      role:'user'
   });
   user
   .save()
@@ -377,7 +378,7 @@ app.get("/admin/contact", async (req, res) => {
     // Render the admin page and pass the user data as an array
     res.render("contacts", { contacts: contacts });
   } catch (err) {
-    console.error(err);
+    console.error(err);4
     res.status(500).send("Error fetching user data.");
   }
 });
