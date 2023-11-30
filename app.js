@@ -359,16 +359,16 @@ app.get("/admin", async (req, res) => {
     res.status(500).send("Error fetching user data.");
   }
 });
-app.post('/dummy-payment', (req, res) => {
-  // Simulate server-side processing (payment verification)
-  const paymentSuccessful = Math.random() < 0.8; // Simulating an 80% success rate
+// app.post('/dummy-payment', (req, res) => {
+//   // Simulate server-side processing (payment verification)
+//   const paymentSuccessful = Math.random() < 0.8; // Simulating an 80% success rate
 
-  if (paymentSuccessful) {
-      res.json({ success: true });
-  } else {
-      res.json({ success: false });
-  }
-});
+//   if (paymentSuccessful) {
+//       res.json({ success: true });
+//   } else {
+//       res.json({ success: false });
+//   }
+// });
 app.get("/admin/contact", async (req, res) => {
   try {
     // Fetch all user data from the database
@@ -377,7 +377,7 @@ app.get("/admin/contact", async (req, res) => {
     // Render the admin page and pass the user data as an array
     res.render("contacts", { contacts: contacts });
   } catch (err) {
-    console.error(err);4
+    
     res.status(500).send("Error fetching user data.");
   }
 });
